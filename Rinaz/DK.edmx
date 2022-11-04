@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DK_RinazModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Child">
+          <Key>
+            <PropertyRef Name="id_child" />
+          </Key>
+          <Property Name="id_child" Type="int" Nullable="false" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="nomer_school" Type="nvarchar" MaxLength="50" />
+          <Property Name="class" Type="nvarchar" MaxLength="10" />
+          <Property Name="svid_rojdenia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="roditeli" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="id_krujok" Type="int" Nullable="false" />
+          <Property Name="id_gruppa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContactPerson">
+          <Key>
+            <PropertyRef Name="ContactPersonId" />
+          </Key>
+          <Property Name="ContactPersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="gruppa">
+          <Key>
+            <PropertyRef Name="id_gruppa" />
+          </Key>
+          <Property Name="id_gruppa" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Krujok">
+          <Key>
+            <PropertyRef Name="id_krujok" />
+          </Key>
+          <Property Name="id_krujok" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="krujok_child">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_child" Type="int" Nullable="false" />
+          <Property Name="id_krujok" Type="int" Nullable="false" />
+          <Property Name="data_start" Type="date" Nullable="false" />
+          <Property Name="data_finish" Type="date" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Prepods">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="seria_pasport" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="nomer_pasport" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="pol" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="semeinoe_polojenie" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="obrazovanie" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="int" Nullable="false" />
+          <Property Name="id_specialization" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specialization">
+          <Key>
+            <PropertyRef Name="id_specialization" />
+          </Key>
+          <Property Name="id_specialization" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Child_gruppa">
+          <End Role="gruppa" Type="Self.gruppa" Multiplicity="1" />
+          <End Role="Child" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gruppa">
+              <PropertyRef Name="id_gruppa" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="id_gruppa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Child_krujok">
+          <End Role="Krujok" Type="Self.Krujok" Multiplicity="1" />
+          <End Role="Child" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Krujok">
+              <PropertyRef Name="id_krujok" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="id_krujok" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_krujok_child_Child">
+          <End Role="Child" Type="Self.Child" Multiplicity="1" />
+          <End Role="krujok_child" Type="Self.krujok_child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Child">
+              <PropertyRef Name="id_child" />
+            </Principal>
+            <Dependent Role="krujok_child">
+              <PropertyRef Name="id_child" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_krujok_child_krujok">
+          <End Role="Krujok" Type="Self.Krujok" Multiplicity="1" />
+          <End Role="krujok_child" Type="Self.krujok_child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Krujok">
+              <PropertyRef Name="id_krujok" />
+            </Principal>
+            <Dependent Role="krujok_child">
+              <PropertyRef Name="id_krujok" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DK_RinazModelContainer">
+          <EntitySet Name="Child" EntityType="Self.Child" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactPerson" EntityType="Self.ContactPerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gruppa" EntityType="Self.gruppa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Krujok" EntityType="Self.Krujok" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="krujok_child" EntityType="Self.krujok_child" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prepods" EntityType="Self.Prepods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Child_gruppa" Association="Self.FK_Child_gruppa">
+            <End Role="gruppa" EntitySet="gruppa" />
+            <End Role="Child" EntitySet="Child" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Child_krujok" Association="Self.FK_Child_krujok">
+            <End Role="Krujok" EntitySet="Krujok" />
+            <End Role="Child" EntitySet="Child" />
+          </AssociationSet>
+          <AssociationSet Name="FK_krujok_child_Child" Association="Self.FK_krujok_child_Child">
+            <End Role="Child" EntitySet="Child" />
+            <End Role="krujok_child" EntitySet="krujok_child" />
+          </AssociationSet>
+          <AssociationSet Name="FK_krujok_child_krujok" Association="Self.FK_krujok_child_krujok">
+            <End Role="Krujok" EntitySet="Krujok" />
+            <End Role="krujok_child" EntitySet="krujok_child" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DK_RinazModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Child">
+          <Key>
+            <PropertyRef Name="id_child" />
+          </Key>
+          <Property Name="id_child" Type="Int32" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="nomer_school" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="class" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="svid_rojdenia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="roditeli" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_krujok" Type="Int32" Nullable="false" />
+          <Property Name="id_gruppa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="gruppa" Relationship="Self.FK_Child_gruppa" FromRole="Child" ToRole="gruppa" />
+          <NavigationProperty Name="Krujok" Relationship="Self.FK_Child_krujok" FromRole="Child" ToRole="Krujok" />
+          <NavigationProperty Name="krujok_child" Relationship="Self.FK_krujok_child_Child" FromRole="Child" ToRole="krujok_child" />
+        </EntityType>
+        <EntityType Name="ContactPerson">
+          <Key>
+            <PropertyRef Name="ContactPersonId" />
+          </Key>
+          <Property Name="ContactPersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="gruppa">
+          <Key>
+            <PropertyRef Name="id_gruppa" />
+          </Key>
+          <Property Name="id_gruppa" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Child" Relationship="Self.FK_Child_gruppa" FromRole="gruppa" ToRole="Child" />
+        </EntityType>
+        <EntityType Name="Krujok">
+          <Key>
+            <PropertyRef Name="id_krujok" />
+          </Key>
+          <Property Name="id_krujok" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Child" Relationship="Self.FK_Child_krujok" FromRole="Krujok" ToRole="Child" />
+          <NavigationProperty Name="krujok_child" Relationship="Self.FK_krujok_child_krujok" FromRole="Krujok" ToRole="krujok_child" />
+        </EntityType>
+        <EntityType Name="krujok_child">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_child" Type="Int32" Nullable="false" />
+          <Property Name="id_krujok" Type="Int32" Nullable="false" />
+          <Property Name="data_start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="data_finish" Type="DateTime" Precision="0" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Child" Relationship="Self.FK_krujok_child_Child" FromRole="krujok_child" ToRole="Child" />
+          <NavigationProperty Name="Krujok" Relationship="Self.FK_krujok_child_krujok" FromRole="krujok_child" ToRole="Krujok" />
+        </EntityType>
+        <EntityType Name="Prepods">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="seria_pasport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nomer_pasport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="pol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="semeinoe_polojenie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="obrazovanie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="Int32" Nullable="false" />
+          <Property Name="id_specialization" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specialization">
+          <Key>
+            <PropertyRef Name="id_specialization" />
+          </Key>
+          <Property Name="id_specialization" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Child_gruppa">
+          <End Role="gruppa" Type="Self.gruppa" Multiplicity="1" />
+          <End Role="Child" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gruppa">
+              <PropertyRef Name="id_gruppa" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="id_gruppa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Child_krujok">
+          <End Role="Krujok" Type="Self.Krujok" Multiplicity="1" />
+          <End Role="Child" Type="Self.Child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Krujok">
+              <PropertyRef Name="id_krujok" />
+            </Principal>
+            <Dependent Role="Child">
+              <PropertyRef Name="id_krujok" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_krujok_child_Child">
+          <End Role="Child" Type="Self.Child" Multiplicity="1" />
+          <End Role="krujok_child" Type="Self.krujok_child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Child">
+              <PropertyRef Name="id_child" />
+            </Principal>
+            <Dependent Role="krujok_child">
+              <PropertyRef Name="id_child" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_krujok_child_krujok">
+          <End Role="Krujok" Type="Self.Krujok" Multiplicity="1" />
+          <End Role="krujok_child" Type="Self.krujok_child" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Krujok">
+              <PropertyRef Name="id_krujok" />
+            </Principal>
+            <Dependent Role="krujok_child">
+              <PropertyRef Name="id_krujok" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DK_R" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Child" EntityType="Self.Child" />
+          <EntitySet Name="ContactPerson" EntityType="Self.ContactPerson" />
+          <EntitySet Name="gruppa" EntityType="Self.gruppa" />
+          <EntitySet Name="Krujok" EntityType="Self.Krujok" />
+          <EntitySet Name="krujok_child" EntityType="Self.krujok_child" />
+          <EntitySet Name="Prepods" EntityType="Self.Prepods" />
+          <EntitySet Name="Specialization" EntityType="Self.Specialization" />
+          <AssociationSet Name="FK_Child_gruppa" Association="Self.FK_Child_gruppa">
+            <End Role="gruppa" EntitySet="gruppa" />
+            <End Role="Child" EntitySet="Child" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Child_krujok" Association="Self.FK_Child_krujok">
+            <End Role="Krujok" EntitySet="Krujok" />
+            <End Role="Child" EntitySet="Child" />
+          </AssociationSet>
+          <AssociationSet Name="FK_krujok_child_Child" Association="Self.FK_krujok_child_Child">
+            <End Role="Child" EntitySet="Child" />
+            <End Role="krujok_child" EntitySet="krujok_child" />
+          </AssociationSet>
+          <AssociationSet Name="FK_krujok_child_krujok" Association="Self.FK_krujok_child_krujok">
+            <End Role="Krujok" EntitySet="Krujok" />
+            <End Role="krujok_child" EntitySet="krujok_child" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DK_RinazModelContainer" CdmEntityContainer="DK_R">
+          <EntitySetMapping Name="Child">
+            <EntityTypeMapping TypeName="DK_RinazModel.Child">
+              <MappingFragment StoreEntitySet="Child">
+                <ScalarProperty Name="id_child" ColumnName="id_child" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="nomer_school" ColumnName="nomer_school" />
+                <ScalarProperty Name="class" ColumnName="class" />
+                <ScalarProperty Name="svid_rojdenia" ColumnName="svid_rojdenia" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="roditeli" ColumnName="roditeli" />
+                <ScalarProperty Name="id_krujok" ColumnName="id_krujok" />
+                <ScalarProperty Name="id_gruppa" ColumnName="id_gruppa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactPerson">
+            <EntityTypeMapping TypeName="DK_RinazModel.ContactPerson">
+              <MappingFragment StoreEntitySet="ContactPerson">
+                <ScalarProperty Name="ContactPersonId" ColumnName="ContactPersonId" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="gruppa">
+            <EntityTypeMapping TypeName="DK_RinazModel.gruppa">
+              <MappingFragment StoreEntitySet="gruppa">
+                <ScalarProperty Name="id_gruppa" ColumnName="id_gruppa" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Krujok">
+            <EntityTypeMapping TypeName="DK_RinazModel.Krujok">
+              <MappingFragment StoreEntitySet="Krujok">
+                <ScalarProperty Name="id_krujok" ColumnName="id_krujok" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="krujok_child">
+            <EntityTypeMapping TypeName="DK_RinazModel.krujok_child">
+              <MappingFragment StoreEntitySet="krujok_child">
+                <ScalarProperty Name="id_child" ColumnName="id_child" />
+                <ScalarProperty Name="id_krujok" ColumnName="id_krujok" />
+                <ScalarProperty Name="data_start" ColumnName="data_start" />
+                <ScalarProperty Name="data_finish" ColumnName="data_finish" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prepods">
+            <EntityTypeMapping TypeName="DK_RinazModel.Prepods">
+              <MappingFragment StoreEntitySet="Prepods">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="seria_pasport" ColumnName="seria_pasport" />
+                <ScalarProperty Name="nomer_pasport" ColumnName="nomer_pasport" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="pol" ColumnName="pol" />
+                <ScalarProperty Name="semeinoe_polojenie" ColumnName="semeinoe_polojenie" />
+                <ScalarProperty Name="obrazovanie" ColumnName="obrazovanie" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="id_specialization" ColumnName="id_specialization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specialization">
+            <EntityTypeMapping TypeName="DK_RinazModel.Specialization">
+              <MappingFragment StoreEntitySet="Specialization">
+                <ScalarProperty Name="id_specialization" ColumnName="id_specialization" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

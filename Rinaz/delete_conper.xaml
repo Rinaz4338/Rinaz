@@ -1,0 +1,16 @@
+﻿<Window x:Class="Rinaz.Delete_w"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rinaz"
+        mc:Ignorable="d"
+        Title="delete_conper" Height="109" Width="345">
+    <Grid Margin="0,0,10,-6">
+        <Label HorizontalAlignment="Left" Margin="23,32,0,0" VerticalAlignment="Top" Content="ID">
+        </Label>
+        <TextBox HorizontalAlignment="Left" Name="tb1" Margin="55,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Удалить" Name="Delete_c" HorizontalAlignment="Left" VerticalAlignment="Top" Height="41" Width="107" Background="#FFFF5757" Click="Delete_c_Click" Margin="204,24,0,0"/>
+
+    </Grid>
+</Window>

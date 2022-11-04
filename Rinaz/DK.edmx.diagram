@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="58e8d3797b654d5aaf3040c395b1d2ae" Name="Diagram1">
+        <EntityTypeShape EntityType="DK_RinazModel.Child" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DK_RinazModel.ContactPerson" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DK_RinazModel.gruppa" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DK_RinazModel.Krujok" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DK_RinazModel.krujok_child" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DK_RinazModel.Prepods" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DK_RinazModel.Specialization" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DK_RinazModel.FK_Child_gruppa" ManuallyRouted="false" />
+        <AssociationConnector Association="DK_RinazModel.FK_Child_krujok" ManuallyRouted="false" />
+        <AssociationConnector Association="DK_RinazModel.FK_krujok_child_Child" ManuallyRouted="false" />
+        <AssociationConnector Association="DK_RinazModel.FK_krujok_child_krujok" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
